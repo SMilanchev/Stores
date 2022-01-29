@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary text-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Stores</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                {#        <li class="nav-item">#}
+                {#          <a class="nav-link" href="#">Link</a>#}
+                {#        </li>#}
+            </ul>
+        </div>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sign in' %}">Sign in</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link " href="{% url 'sign up' %}">Sign up</a>
+            </li>
+            {% else %}
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sign out' %}">Sign out</a>
+            </li>
+
+
+            <li class="nav-item active">
+                <a class="nav-link " href="#">Profile</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</nav>

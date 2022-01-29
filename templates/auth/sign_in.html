@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="{% url 'sign in' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button>Sign in</button>
-</form>
-</body>
-</html>
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <form action="{% url 'sign in' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button>Sign in</button>
+    </form>
+{% endblock %}

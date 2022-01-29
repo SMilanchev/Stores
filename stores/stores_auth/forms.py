@@ -3,16 +3,18 @@ from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
+from stores.common.mixins.bootstrap_form_mixins import BootstrapFormControlMixin
+
 UserModel = get_user_model()
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(BootstrapFormControlMixin, UserCreationForm):
     class Meta:
         model = UserModel
         fields = ('email',)
 
 
-class SignInForm(forms.Form):
+class SignInForm(BootstrapFormControlMixin, forms.Form):
     user = None
     email = forms.EmailField()
     password = forms.CharField(
