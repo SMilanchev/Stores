@@ -15,7 +15,17 @@ class CategoryCreateForm(BootstrapFormControlMixin, forms.ModelForm):
         return cleaned_name
 
 
+class CategoryUpdateForm(CategoryCreateForm):
+    pass
+
+
 class ProductCreateForm(BootstrapFormControlMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+
+
+class ProductUpdateForm(BootstrapFormControlMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('category_type',)
