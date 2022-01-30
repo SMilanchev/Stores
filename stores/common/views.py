@@ -44,7 +44,7 @@ def update_product(request, pk):
     return render(request, 'common/update_product.html', context)
 
 
-@login_required()
+@login_required
 def delete_product(request, pk):
     product = Product.objects.get(pk=pk)
     if request.method == 'POST':
@@ -86,7 +86,7 @@ def update_category(request, pk):
     return render(request, 'common/update_category.html', context)
 
 
-@login_required()
+@login_required
 def delete_category(request, pk):
     category = Category.objects.get(pk=pk)
     if request.method == 'POST':
