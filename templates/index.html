@@ -1,4 +1,5 @@
 {% extends 'shared/base.html' %}
+{% load location_store_city_country %}
 
 {% block content %}
     <div class="container" style="padding: 50px">
@@ -18,7 +19,7 @@
                     {% endfor %}
                 </ul>
             </li>
-            <li>Location: {{ store.location }}</li>
+            <li>Location: <a href="{% url 'location store' store.id %}">{% get_store_city_and_country store.location %}</a></li>
             <li>Owner: {{ store.owner }}</li>
         </ul>
     </div>

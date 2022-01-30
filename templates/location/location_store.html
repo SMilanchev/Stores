@@ -1,0 +1,12 @@
+{% extends 'shared/base.html' %}
+{% block title %}Location{% endblock %}
+
+{% block content %}
+     <div class="container" style="padding-bottom: 50px">
+        <div class="row mt-4"></div>
+        <div class="col-md-10 offset-md-1">
+            <h1>Location {{ store_name }}</h1>
+            {{ map|safe }}
+        </div>
+    </div>
+{% endblock %}
