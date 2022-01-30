@@ -1,8 +1,25 @@
 {% extends 'shared/base.html' %}
 
 {% block content %}
-    It works!
-    <p><a href="{% url 'sign in' %}">Sign in</a></p>
-    <p><a href="{% url 'sign up' %}">Sign up</a></p>
-    <p><a href="{% url 'sign out' %}">Sign out</a></p>
+    <div class="container" style="padding: 50px">
+        <ul>
+            {% if is_owner %}
+                <li>Name: <a href="{% url 'update store' store.id %}">{{ store.name }}</a></li>
+            {% else %}
+                <li>Name: {{ store.name }}</li>
+            {% endif %}
+            <li><img src="{{ store.image.url }}" alt="Store image"></li>
+            <li>Description: {{ store.description }}</li>
+            <li>
+                Categories:
+                <ul>
+                    {% for category in store.categories.all %}
+                        <li><a href="{% url 'list category' category.id %}">{{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>Location: {{ store.location }}</li>
+            <li>Owner: {{ store.owner }}</li>
+        </ul>
+    </div>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'shared/base.html' %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+    {% if category_empty %}
+        <h1>This category still is empty. Add products to it by clicking <a href="{% url 'create product' %}">here</a>
+        </h1>
+    {% else %}
+        <h1>All products from category {{ category.name }}:</h1>
+        {% for product in category.product_set.all %}
+            <ul>
+                <li>Name:{{ product.name }}</li>
+                <li><img src="{{ product.image.url }}" alt="Product image"></li>
+                <li>{{ product.description }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+    <h1>Press <a href="{% url 'update category' category.id %}">here</a> to edit this category</h1>
+{% endblock %}

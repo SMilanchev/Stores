@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'stores.stores_auth',
     'stores.profiles',
     'stores.common',
+    'stores.store'
 ]
 
 MIDDLEWARE = [

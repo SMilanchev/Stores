@@ -1,0 +1,9 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <form action="{% url 'update store' store_pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button>Edit</button>
+    </form>
+{% endblock %}

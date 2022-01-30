@@ -5,10 +5,6 @@ from stores.common.forms import ProductCreateForm, CategoryCreateForm, ProductUp
 from stores.common.models import Product, Category
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 @login_required
 def create_product(request):
     if request.method == 'POST':
@@ -66,6 +62,18 @@ def create_category(request):
         'form': form,
     }
     return render(request, 'common/create_category.html', context)
+
+
+@login_required
+def list_category(request, pk):
+    category = Category.objects.get(pk=pk)
+    category_empty = not category.product_set.all().exists()
+
+    context = {
+        'category': category,
+        'category_empty': category_empty
+    }
+    return render(request, 'common/list_category.html', context)
 
 
 @login_required
