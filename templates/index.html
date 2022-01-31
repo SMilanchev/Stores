@@ -1,26 +1,39 @@
 {% extends 'shared/base.html' %}
 {% load location_store_city_country %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
 
 {% block content %}
-    <div class="container" style="padding: 50px">
-        <ul>
-            {% if is_owner %}
-                <li>Name: <a href="{% url 'update store' store.id %}">{{ store.name }}</a></li>
-            {% else %}
-                <li>Name: {{ store.name }}</li>
-            {% endif %}
-            <li><img src="{{ store.image.url }}" alt="Store image"></li>
-            <li>Description: {{ store.description }}</li>
-            <li>
-                Categories:
-                <ul>
-                    {% for category in store.categories.all %}
-                        <li><a href="{% url 'list category' category.id %}">{{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-            <li>Location: <a href="{% url 'location store' store.id %}">{% get_store_city_and_country store.location %}</a></li>
-            <li>Owner: {{ store.owner }}</li>
-        </ul>
-    </div>
+    <ul class="list-group">
+        {% if is_owner %}
+            <li class="list-group-item">Name: <a href="{% url 'update store' store.id %}">{{ store.name }}</a></li>
+        {% else %}
+            <li class="list-group-item">Name: {{ store.name }}</li>
+        {% endif %}
+        <li class="list-group-item"><img src="{{ store.image.url }}" alt="Store image"
+                                         class="rounded mx-auto d-block"></li>
+        <li class="list-group-item">Description: {{ store.description }}</li>
+        <li class="list-group-item">
+            Categories:
+            <ul class="list-group">
+                {% for category in store.categories.all %}
+                    <li class="list-group-item"><a href="{% url 'list category' category.id %}"
+                                                   class="list-group-item list-group-item-action">{{ category.name }}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="image"><img style="width: 200px; height: 200px; object-fit: contain"
+                                                src="{{ category.image.url }}" alt="category image"
+                                                class="img-fluid rounded mx-auto d-block"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="list-group-item">Location: <a href="{% url 'location store' store.id %}"
+                                                 class="list-group-item list-group-item-action">{% get_store_city_and_country store.location %}</a>
+        </li>
+        <li class="list-group-item">Owner: {{ store.owner }}</li>
+    </ul>
 {% endblock %}

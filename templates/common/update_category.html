@@ -4,6 +4,6 @@
     <form action="{% url 'update category' category_id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
-        <button>Create</button>
+        <button class="btn btn-primary me-md-2 pa" style="margin-top: 20px">Create</button>
     </form>
 {% endblock %}

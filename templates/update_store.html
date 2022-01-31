@@ -4,6 +4,6 @@
     <form action="{% url 'update store' store_pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
-        <button>Edit</button>
+        <button class="btn btn-primary me-md-2 pa" style="margin-top: 20px">Edit</button>
     </form>
 {% endblock %}

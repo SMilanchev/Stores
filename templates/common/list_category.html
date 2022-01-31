@@ -1,19 +1,33 @@
 {% extends 'shared/base.html' %}
 {% block title %}{{ category.name }}{% endblock %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
 
 {% block content %}
     {% if category_empty %}
-        <h1>This category still is empty. Add products to it by clicking <a href="{% url 'create product' %}">here</a>
-        </h1>
+        <h1 class="text-center">This category still is empty.</h1>
+        <h2><a href="{% url 'create product' %}" class="btn btn-outline-primary">Add products </a></h2>
     {% else %}
-        <h1>All products from category {{ category.name }}:</h1>
-        {% for product in category.product_set.all %}
-            <ul>
-                <li>Name:{{ product.name }}</li>
-                <li><img src="{{ product.image.url }}" alt="Product image"></li>
-                <li>{{ product.description }}</li>
-            </ul>
-        {% endfor %}
+        <h1 class='text-center'>All products from category {{ category.name }}:</h1>
+        <div class="row">
+            {% for product in category.product_set.all %}
+                <div class="col-lg-4" style="padding: 20px;">
+                    <div class="card-body" style="width: 18rem;">
+                        <div class="image"><img src="{{ product.image.url }}" class="card-img-top img-thumbnail"
+                                                alt="{{ product.description }}"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
-    <h1>Press <a href="{% url 'update category' category.id %}">here</a> to edit this category</h1>
+    <h2><a href="{% url 'update category' category.id %}" class="btn btn-outline-primary">Edit
+        category {{ category.name }}</a></h2>
 {% endblock %}
