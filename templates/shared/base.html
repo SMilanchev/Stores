@@ -1,3 +1,5 @@
+{% load is_complete_notification %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,12 +25,15 @@
 
 {% include 'shared/nav.html' %}
 
+{% if request.user.is_authenticated %}
+    {% profile_complete_notification %}
+{% endif %}
+
 {% block content %}
 {% endblock %}
 
-
-
 {% block scripts_body_end %}
 {% endblock %}
+
 </body>
 </html>

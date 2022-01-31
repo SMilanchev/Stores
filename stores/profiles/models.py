@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from stores.store.validators import capital_first_letter
 
 UserModel = get_user_model()
 
@@ -9,10 +10,16 @@ class Profile(models.Model):
     first_name = models.CharField(
         max_length=20,
         blank=True,
+        validators=[
+            capital_first_letter,
+        ]
     )
     last_name = models.CharField(
         max_length=20,
         blank=True,
+        validators=[
+            capital_first_letter,
+        ]
     )
     age = models.PositiveIntegerField(
         blank=True,
@@ -20,6 +27,10 @@ class Profile(models.Model):
     )
     image = models.ImageField(
         upload_to='profiles',
+        blank=True
+    )
+    is_complete = models.BooleanField(
+        default=False,
     )
     user = models.OneToOneField(
         UserModel,
