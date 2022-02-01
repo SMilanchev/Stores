@@ -7,11 +7,13 @@ from stores.store.models import Store
 
 
 def index(request):
-    store = Store.objects.first()
-    is_owner = request.user == store.owner
+    stores = Store.objects.exists()
+    if stores:
+        stores = Store.objects.all()
+
     context = {
-        'store': store,
-        'is_owner': is_owner,
+        'stores': stores,
+        'user': request.user,
     }
     return render(request, 'index.html', context)
 

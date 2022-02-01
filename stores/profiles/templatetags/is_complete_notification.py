@@ -10,7 +10,7 @@ def profile_complete_notification(context):
     user_id = context.request.user.id
     profile = Profile.objects.get(pk=user_id)
 
-    if profile.first_name and profile.last_name and profile.age and profile.image:
+    if profile.first_name and profile.last_name and profile.age:
         profile.is_complete = True
     else:
         profile.is_complete = False
