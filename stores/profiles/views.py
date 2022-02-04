@@ -8,9 +8,16 @@ from stores.profiles.models import Profile
 
 @login_required
 def details_profile(request):
-    profile = Profile.objects.get(pk=request.user.id)
+    user = request.user
+    profile = Profile.objects.get(pk=user.id)
+    order = user.order_set.last() if user.order_set.exists() else False
+
+    # for pr in order.orderproducts_set.all():
+    #     print(pr.product.name)
+
     context = {
         'profile': profile,
+        'order': order,
     }
     return render(request, 'profiles/details_profile.html', context)
 

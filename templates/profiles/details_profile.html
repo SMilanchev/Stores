@@ -11,5 +11,24 @@
     {% endif %}
     <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
     <h2>Age: {{ profile.age }}</h2>
-    <p><a href="{% url 'edit profile' %}" class="btn btn-outline-primary">Edit</a></p>
+    <h2>Budget left: {{ profile.budget|floatformat:2 }} lv.</h2>
+
+
+    {% if order and not order.is_send %}
+        <h1>All items in order:</h1>
+        <ul class="list-group list-group-flush">
+            {% for order_product in order.orderproducts_set.all %}
+                <li class="list-group-item">{{ order_product.product.name }} - price: {{ order_product.product.price|floatformat:2 }} lv.</li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="{% url 'send order' %}" class="btn btn-outline-primary">Purchase order</a></p>
+    {% elif order and order.is_send %}
+        <h2>Order is send on {{ order.send_time }}</h2>
+    {% else %}
+        <h2>You dont have any items to purchase and yet have not made purchase.</h2>
+    {% endif %}
+    <hr>
+    <p><a href="{% url 'edit profile' %}" class="btn btn-outline-primary">Edit profile</a></p>
+
 {% endblock %}

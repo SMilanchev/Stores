@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -27,4 +28,9 @@ class Product(models.Model):
     category_type = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
+    )
+    price = models.FloatField(
+        validators=[
+            MinValueValidator(0),
+        ]
     )

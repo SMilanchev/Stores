@@ -13,6 +13,9 @@
         <h2><a href="{% url 'create product' %}" class="btn btn-outline-primary">Add products </a></h2>
     {% else %}
         <h1 class='text-center'>All products from category {{ category.name }}:</h1>
+        {% if errors %}
+            <h2>{{ errors }}</h2>
+        {% endif %}
         <div class="row">
             {% for product in category.product_set.all %}
                 <div class="col-lg-4" style="padding: 20px;">
@@ -22,6 +25,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">Price: {{ product.price|floatformat:2 }} lv.</p>
+                            <a href="{% url 'add to order' product.id %}" class="btn btn-outline-primary">add</a>
                         </div>
                     </div>
                 </div>

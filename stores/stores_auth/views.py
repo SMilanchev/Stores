@@ -25,6 +25,8 @@ def sign_in(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            if request.GET['next'] is not '':
+                return redirect(request.GET.get('next'))
             return redirect('index')
     else:
         form = SignInForm()
