@@ -24,7 +24,7 @@
 
         <p><a href="{% url 'send order' %}" class="btn btn-outline-primary">Purchase order</a></p>
     {% elif order and order.is_send %}
-        <h2>Order is send on {{ order.send_time }}</h2>
+        <h2>Order is sent on {{ order.send_time }}</h2>
     {% else %}
         <h2>You dont have any items to purchase and yet have not made purchase.</h2>
     {% endif %}

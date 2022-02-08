@@ -15,4 +15,7 @@ def profile_complete_notification(context):
     else:
         profile.is_complete = False
 
+    profile.save()
+
+
     return {'is_complete': profile.is_complete}

@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from stores.profiles.models import Profile
 from stores.store.forms import CreateStoreForm, EditStoreForm
 from stores.store.models import Store
 

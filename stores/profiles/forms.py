@@ -8,3 +8,11 @@ class EditProfileFrom(BootstrapFormControlMixin, forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ('user', 'is_complete')
+
+        widgets = {
+            'budget': forms.TextInput(
+                attrs={
+                    'disabled': True,
+                }
+            )
+        }
