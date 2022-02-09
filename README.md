@@ -21,7 +21,7 @@ Simple app showing stores registered - for each store:
 ### If not authenticated user tries to add/change something:
 ![not_logged_add_sth](https://user-images.githubusercontent.com/48320090/153178575-59f8b930-6852-45e1-b48e-f4c25466ebd4.png)
 
-### If not authenticated, but there is store one can only READ index and map-location page:
+### If not authenticated, but there is store one can only READ index page:
 ![not_logged_in_store](https://user-images.githubusercontent.com/48320090/153179134-698a77e9-b06a-408d-a72e-17f8ea620596.png)
 
 ### If authorized is able to update store:
