@@ -11,7 +11,7 @@ Simple store app created with Django and PostgreSQL.
 ## Introduction
 Simple app showing stores registered - for each store: 
 - its products by category
-- location on the map of the store
+- location of the store on map
 ###### Application created with knowledge gained through Python Web course.
 
 
