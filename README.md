@@ -56,12 +56,7 @@ Application created to show all I have learnt through Python Web course.
 
 
 
-
-
-
-
-
-## Tehcnologies
+## Technologies
 * Python 3.7
 * Django 3.2
 * PostgreSQL 
