@@ -4,8 +4,9 @@ Simple store app created with Django and PostgreSQL.
 
 ## Table of Contents
 * [Introduction](#introduction)
-* [Screenshots](#functionality-with-screenshots)
+* [Functionality](#functionality-with-screenshots)
 * [Technologies](#technologies)
+* [Status](#Status)
 
 ## Introduction
 Simple app showing stores registered - for each store: 
@@ -64,3 +65,8 @@ Simple app showing stores registered - for each store:
 * Bootstrap 4 and 5
 * Folium
 * Geocoder
+
+## Status
+### Todo:
+* Replace FBV with CBV
+* Add tests
