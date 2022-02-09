@@ -54,6 +54,9 @@ Simple app showing stores registered - for each store:
 ![logged_in_store_bottom](https://user-images.githubusercontent.com/48320090/153184487-2e21e001-5b75-4535-95c4-1554afd1ea75.png)
 * Location of the store on the map:
 ![store_location](https://user-images.githubusercontent.com/48320090/153184608-3cfeb0f8-70e8-4e5a-86b4-520493279be0.png)
+* User sign up: 
+![sign_up_form](https://user-images.githubusercontent.com/48320090/153231212-9c99f5cf-21be-4a1a-aa8b-ed3448539f27.png)
+
 
 
 
