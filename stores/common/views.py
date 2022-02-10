@@ -1,24 +1,23 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView,DetailView, UpdateView
 
 from stores.common.forms import ProductCreateForm, CategoryCreateForm, ProductUpdateForm, CategoryUpdateForm
 from stores.common.models import Product, Category
 
 
-@login_required
-def create_product(request):
-    if request.method == 'POST':
-        form = ProductCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    else:
-        form = ProductCreateForm()
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductCreateForm
+    template_name = 'common/create_product.html'
+    success_url = reverse_lazy('index')
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'common/create_product.html', context)
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 @login_required
@@ -48,50 +47,50 @@ def delete_product(request, pk):
         return redirect('index')
 
 
-@login_required
-def create_category(request):
-    if request.method == 'POST':
-        form = CategoryCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    else:
-        form = CategoryCreateForm()
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryCreateForm
+    template_name = 'common/create_category.html'
+    success_url = reverse_lazy('index')
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'common/create_category.html', context)
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
-@login_required
-def list_category(request, pk):
-    category = Category.objects.get(pk=pk)
-    category_empty = not category.product_set.all().exists()
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'common/list_category.html'
+    context_object_name = 'category'
 
-    context = {
-        'category': category,
-        'category_empty': category_empty
-    }
-    return render(request, 'common/list_category.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_empty = not self.object.product_set.all().exists()
+        context['category_empty'] = category_empty
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
-@login_required
-def update_category(request, pk):
-    category = Category.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = CategoryUpdateForm(request.POST, request.FILES, instance=category)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    else:
-        form = CategoryUpdateForm(instance=category)
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryUpdateForm
+    template_name = 'common/update_category.html'
+    success_url = reverse_lazy('index')
 
-    context = {
-        'form': form,
-        'category_id': category.id,
-    }
-    return render(request, 'common/update_category.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_id'] = self.object.id
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 @login_required

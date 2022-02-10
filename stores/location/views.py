@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import folium
 import geocoder
+from django.views.generic import DetailView
+
 from stores.store.models import Store
 
 

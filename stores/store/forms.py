@@ -11,4 +11,6 @@ class CreateStoreForm(BootstrapFormControlMixin, forms.ModelForm):
 
 
 class EditStoreForm(CreateStoreForm):
-    pass
+    class Meta:
+        model = Store
+        exclude = ('owner',)

@@ -34,9 +34,7 @@ class Profile(models.Model):
         default=False,
     )
     budget = models.FloatField(
-        validators=[
-            MinValueValidator(0),
-        ]
+        default=10,
     )
     user = models.OneToOneField(
         UserModel,

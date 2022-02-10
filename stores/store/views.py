@@ -1,58 +1,54 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
+
 from stores.profiles.models import Profile
 from stores.store.forms import CreateStoreForm, EditStoreForm
 from stores.store.models import Store
 
 
-def index(request):
-    stores = Store.objects.exists()
-    if stores:
-        stores = Store.objects.all()
-
-    context = {
-        'stores': stores,
-        'user': request.user,
-    }
-    return render(request, 'index.html', context)
+class IndexListView(ListView):
+    model = Store
+    template_name = 'index.html'
+    context_object_name = 'stores'
 
 
-@login_required
-def create_store(request):
-    if request.method == 'POST':
-        form = CreateStoreForm(request.POST, request.FILES)
-        if form.is_valid():
-            store = form.save(commit=False)
-            store.owner = request.user
-            store.save()
-            form.save_m2m()
-            return redirect('index')
-    else:
-        form = CreateStoreForm()
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'create_store.html', context)
+class StoreCreateView(CreateView):
+    model = Store
+    form_class = CreateStoreForm
+    template_name = 'create_store.html'
+    success_url = reverse_lazy('index')
 
 
-@login_required
-def update_store(request, pk):
-    store = Store.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = EditStoreForm(request.POST, request.FILES, instance=store)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    else:
-        form = EditStoreForm(instance=store)
+    def form_valid(self, form):
+        store = form.save(commit=False)
+        store.owner = self.request.user
+        store.save()
+        form.save_m2m()
+        return super().form_valid(form)
 
-    context = {
-        'form': form,
-        'store_pk': store.id,
-    }
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
-    return render(request, 'update_store.html', context)
+
+class StoreUpdateView(UpdateView):
+    model = Store
+    template_name = 'update_store.html'
+    form_class = EditStoreForm
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['store_pk'] = self.object.id
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
