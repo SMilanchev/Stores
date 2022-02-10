@@ -57,6 +57,10 @@ Simple app showing stores registered - for each store:
 * User sign up: 
 ![sign_up_form](https://user-images.githubusercontent.com/48320090/153231212-9c99f5cf-21be-4a1a-aa8b-ed3448539f27.png)
 
+### Administration:
+![admin_site](https://user-images.githubusercontent.com/48320090/153439898-ba0ea86c-4b70-4d37-93a4-88db5a89a405.png)
+
+
 
 
 
